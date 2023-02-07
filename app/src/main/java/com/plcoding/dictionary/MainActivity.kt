@@ -26,11 +26,13 @@ class MainActivity : ComponentActivity() {
             DictionaryTheme {
                 val viewModel: WordInfoViewModel = hiltViewModel()
                 val state = viewModel.state.value
+                // show snackbars easily in compose
                 val scaffoldState = rememberScaffoldState()
 
                 LaunchedEffect(key1 = true) {
                     viewModel.eventFlow.collectLatest { event ->
                         when(event) {
+                            // Only one event to show snack bar
                             is WordInfoViewModel.UIEvent.ShowSnackbar -> {
                                 scaffoldState.snackbarHostState.showSnackbar(
                                     message = event.message
@@ -66,10 +68,12 @@ class MainActivity : ComponentActivity() {
                                 items(state.wordInfoItems.size) { i ->
                                     val wordInfo = state.wordInfoItems[i]
                                     if(i > 0) {
+                                        //Extra space for the first item
                                         Spacer(modifier = Modifier.height(8.dp))
                                     }
                                     WordInfoItem(wordInfo = wordInfo)
                                     if(i < state.wordInfoItems.size - 1) {
+                                        // Add divider after every single item except the last one
                                         Divider()
                                     }
                                 }

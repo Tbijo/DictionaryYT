@@ -21,17 +21,23 @@ class WordInfoViewModel @Inject constructor(
     private val getWordInfo: GetWordInfo
 ) : ViewModel() {
 
+    // State for search field
+    // make separate to not update whole composable on every key pressed
     private val _searchQuery = mutableStateOf("")
     val searchQuery: State<String> = _searchQuery
 
+    // Main state
     private val _state = mutableStateOf(WordInfoState())
     val state: State<WordInfoState> = _state
 
+    // one time event to show snack bar
     private val _eventFlow = MutableSharedFlow<UIEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
     private var searchJob: Job? = null
 
+    // search function will fire everytime we type a char
+    // trigger API and get data from db
     fun onSearch(query: String) {
         _searchQuery.value = query
         searchJob?.cancel()
@@ -51,6 +57,7 @@ class WordInfoViewModel @Inject constructor(
                                 wordInfoItems = result.data ?: emptyList(),
                                 isLoading = false
                             )
+                            // Display Snack Bar
                             _eventFlow.emit(UIEvent.ShowSnackbar(
                                 result.message ?: "Unknown error"
                             ))

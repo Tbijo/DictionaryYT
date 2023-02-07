@@ -7,6 +7,8 @@ class GsonParser(
     private val gson: Gson
 ): JsonParser {
 
+    // Implementacia JSON Parsera kniznicou GSON
+
     override fun <T> fromJson(json: String, type: Type): T? {
         return gson.fromJson(json, type)
     }

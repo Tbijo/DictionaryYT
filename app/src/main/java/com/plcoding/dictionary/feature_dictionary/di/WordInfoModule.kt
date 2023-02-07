@@ -39,11 +39,11 @@ object WordInfoModule {
     }
 
     @Provides
-    @Singleton
+    @Singleton          // and add here as a parameter for easy swaps (f.e. Moshi) Converters(MoshiParser(Moshi()))
     fun provideWordInfoDatabase(app: Application): WordInfoDatabase {
         return Room.databaseBuilder(
             app, WordInfoDatabase::class.java, "word_db"
-        ).addTypeConverter(Converters(GsonParser(Gson())))
+        ).addTypeConverter(Converters(GsonParser(Gson()))) // should have provides function for Converters(GsonParser(Gson()))
             .build()
     }
 

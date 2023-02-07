@@ -7,7 +7,7 @@ import com.plcoding.dictionary.feature_dictionary.data.util.GsonParser
 import com.plcoding.dictionary.feature_dictionary.data.util.JsonParser
 import com.plcoding.dictionary.feature_dictionary.domain.model.Meaning
 
-@ProvidedTypeConverter
+@ProvidedTypeConverter // providnem vlastnu instanciu kvoli tomu ze convertery by nemali mat konstrutkor s parametrami
 class Converters(
     private val jsonParser: JsonParser
 ) {

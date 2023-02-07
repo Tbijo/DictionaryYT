@@ -11,8 +11,9 @@ class GetWordInfo(
 ) {
 
     operator fun invoke(word: String): Flow<Resource<List<WordInfo>>> {
+        // FOR VALIDATION LOGIC
         if(word.isBlank()) {
-            return flow {  }
+            return flow {  } // empty flow, no API call
         }
         return repository.getWordInfo(word)
     }
